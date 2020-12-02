@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const token = process.env.DISCORD_BOT_SECRET;
+const token = "your token here"
 const fs = require('fs');
 
 
@@ -12,7 +12,7 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-  prefix = "%";
+  prefix = "/";
   //Creating command arguments -------------------------------------------------------------------------------------
   const args = msg.content.slice(prefix.length).split(' ');
   const command = args.shift().toLowerCase();
@@ -22,6 +22,11 @@ client.on('message', msg => {
       const HelpDesc = "% - prefix\n";
       const HelpEmbed = typicalEmbed(HelpDesc, "Help & Info", footer, colour);
       msg.channel.send(HelpEmbed)
+    }
+
+    if(msg.content.startsWith(prefix + "greg")) {
+      const GregDesc = "To be added later.";
+      const GregEmbed = typicalEmbed(GregDesc, "G RE G", footer, colour);
     }
   }
 
