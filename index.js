@@ -23,16 +23,18 @@ client.on('message', msg => {
   if(msg.member.roles.cache.has('775072572487630908') == true) { //While bot is in early stages, dont want unauthorized ppl using it.
     
     if(msg.content.startsWith(prefix + "setprefix")) {
-      msg.channel.send(args);
-      msg.channel.send("Your prefix has been set to: " + args[1]);
-
-
-
+      prefix = args[0]
+      msg.channel.send("Your prefix has been set to: " + args[0]);
+      let TempDict = {
+        "Prefix": prefix
+      };
+      let jsonDATA = JSON.stringify(TempDict);
+      fs.writeFile("./JSONs/general.json", jsonDATA, function(err) { //function(err) is the callback function
+        if(err) {
+          msg.channel.send(err);
+        }
+      });
     }
-
-
-
-
     if(msg.content.startsWith(prefix + "help")) {
       const HelpDesc = prefix + " - prefix\n";
       const HelpEmbed = typicalEmbed(HelpDesc, "Help & Info", footer, colour);
@@ -45,7 +47,7 @@ client.on('message', msg => {
     }
   }
 
-  //client.channels.cache.get('740160351668142091').send("\:GREG:");
+  client.channels.cache.get('740160351668142091').send("\:GREG:");
 });
 
 function typicalEmbed(desc, title, footer, colour) {
@@ -58,5 +60,4 @@ function typicalEmbed(desc, title, footer, colour) {
 
   return Embed;
 }
-
 client.login(token);
