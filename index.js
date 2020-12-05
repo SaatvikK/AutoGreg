@@ -45,9 +45,10 @@ client.on('message', msg => {
       const GregDesc = "To be added later.";
       const GregEmbed = typicalEmbed(GregDesc, "G RE G", footer, colour);
     }
-  }
 
-  client.channels.cache.get('740160351668142091').send("\:GREG:");
+    if(msg.author.id !== client.user.id) { client.channels.cache.get('740160351668142091').send("\:GREG:"); }
+
+  }
 });
 
 function typicalEmbed(desc, title, footer, colour) {
