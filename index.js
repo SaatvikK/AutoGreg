@@ -46,7 +46,8 @@ client.on('message', msg => {
       const GregEmbed = typicalEmbed(GregDesc, "G RE G", footer, colour);
     }
 
-    if(msg.author.id !== client.user.id) { client.channels.cache.get('740160351668142091').send("\:GREG:"); }
+    const GREG = client.emojis.cache.get(":GREG:")
+    if(msg.author.id !== client.user.id) { client.channels.cache.get('784445287669825577').send(GREG); }
 
   }
 });
