@@ -81,7 +81,7 @@ client.on('message', msg => {
 
       msg.channel.send("All done! I'll now spam " + GregID + " in <#" + GregChannel + "> whenever someone sends a message!");
     }
-
+  }
   if(msg.content.startsWith(prefix + "hpybd")) {
     msg.channel.send("Happy birthday Rival!!");
   }
