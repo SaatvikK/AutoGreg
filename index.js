@@ -52,10 +52,10 @@ client.on('message', msg => {
 
   if(msg.content.startsWith(prefix + "issue")) {
     let Issue = "";
-    for(let i = 0; i < args; i ++) {
+    for(let i = 0; i < args.length; i++) {
       Issue = Issue + " " + args[i];
     }
-    client.channels.cache.get("785116447852068875").send(Issue);
+    client.channels.cache.get("785116447852068875").send("<@397773303965548544>, new issue:\nFrom: <@" + msg.author.id + ">\nIssue: " + Issue);
     msg.channel.send("Your issue has been sent to the developer(s)!");
   }
 
