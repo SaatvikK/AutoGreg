@@ -2,6 +2,7 @@
 Prag's Pog Squad Bot: AutoGreg
 
 **v1.2**
-Adding help command
-greg command
-issue report command
+- Adding help command
+- Greg command
+- Issue report command
+- Webserver (bot on 24/7)
