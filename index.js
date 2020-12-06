@@ -19,7 +19,10 @@ let prefix = data["Prefix"];
 
 let GregChannel = data["GregChannel"];
 let GregID = data["GregID"];
+
+
 client.on('message', msg => {
+  msg.content = msg.content.toLowerCase();
   //Creating command arguments -------------------------------------------------------------------------------------
   const args = msg.content.slice(prefix.length).split(' ');
   const command = args.shift().toLowerCase();
@@ -46,8 +49,8 @@ client.on('message', msg => {
   }
 
   if(msg.content.startsWith(prefix + "greg")) {
-    const GregDesc = "To be added later.";
-    const GregEmbed = typicalEmbed(GregDesc, "G RE G", footer, colour);
+    const GregDesc = "GREG is a user in this server that Prag (and most people with the Feeeshing Squad role) know IRL. GREG is a god and basically a meme on the server.\nYou can ask GREG questions in <#737657113618415627> and spam anything GREG in <#729325685738438686>!\n\n\nGREG is the person on Prag's starting soon screen :)\nHe has his own role so you can easily identify him.";
+    msg.channel.send(typicalEmbed(GregDesc, "G RE G", footer, colour));
   }
 
   if(msg.content.startsWith(prefix + "issue")) {
@@ -96,9 +99,13 @@ client.on('message', msg => {
   if(msg.content.startsWith(prefix + "hpybd")) {
     msg.channel.send("Happy birthday Rival!!");
   }
+
+  if(msg.content.startsWith("good morning") || msg.content.startsWith("gm")) {
+    msg.channel.send("Goooood morning Vietnaaaaaam! Greg has blessed you with a good day, <@" + msg.author.id + ">!")
+  }
 });
 
-function typicalEmbed(desc, title, footer, colour) {
+function typicalEmbed(desc, title, footer, colour) {z
   const Embed = new Discord.MessageEmbed()
   .setColor(colour)
   .setTitle(title)
