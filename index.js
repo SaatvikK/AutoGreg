@@ -3,8 +3,10 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require('fs');
 const path = require('path');
+
 const colour = '#0099ff';
 const footer = "Auto Greg Bot | Prag's Pog Squad";
+
 client.on('ready', () => {
   console.log("I'm in");
   console.log(client.user.username);
@@ -80,7 +82,7 @@ client.on('message', msg => {
     }
 
     if(msg.content.startsWith(prefix + "hpybd")) {
-      msg.channel.send("Happy birthday <@234347441363746816>!!");
+      msg.channel.send("Happy birthday Rival!!");
     }
   }
 });
@@ -94,47 +96,5 @@ function typicalEmbed(desc, title, footer, colour) {
   .setFooter(footer);
 
   return Embed;
-}
-
-
-function gregReactionSetup() {
-
-}
-client.login(token);
-    if(msg.content.startsWith(prefix + "gregsetup")) {
-      GregID = args[0];
-      GregChannel = args[1];
-      let TempDict = {
-        "Prefix": prefix,
-        "GregChannel": GregChannel,
-        "GregID": GregID
-      };
-      let jsonDATA = JSON.stringify(TempDict);
-      fs.writeFile("./JSONs/general.json", jsonDATA, function(err) { //function(err) is the callback function
-        if(err) {
-          msg.channel.send(err);
-        }
-      });
-
-      msg.channel.send("All done! I'll now spam " + GregID + " in <#" + GregChannel + "> whenever someone sends a message!");
-    }
-
-  }
-});
-
-function typicalEmbed(desc, title, footer, colour) {
-  const Embed = new Discord.MessageEmbed()
-  .setColor(colour)
-  .setTitle(title)
-  .setDescription(desc)
-  .setTimestamp()
-  .setFooter(footer);
-
-  return Embed;
-}
-
-
-function gregReactionSetup() {
-
 }
 client.login(token);
