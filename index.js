@@ -57,8 +57,10 @@ client.on('message', msg => {
       //The above is obtained by typing (in discord) "\:emojiname:"
     }
   } else {
-    const GregErrDesc = "Get an admin to do the following:\n1) type `<\:emojiname:` into discord.\n2) Copy the output you get (it should look something like: `<:GREG:784815940889346078>`).\n3) Type the following: `/gregsetup [<:emoji:emoji_id:>] [Channel ID you want to spam]`.\nAnd you're good to go!";
-    msg.channel.send(typicalEmbed(GregErrDesc, "Setting up the Greg spam function", footer, colour));
+    if(msg.author.id !== client.user.id) {
+      const GregErrDesc = "Get an admin to do the following:\n1) type `<\:emojiname:` into discord.\n2) Copy the output you get (it should look something like: `<:GREG:784815940889346078>`).\n3) Type the following: `/gregsetup [<:emoji:emoji_id:>] [Channel ID you want to spam]`.\nAnd you're good to go!";
+      msg.channel.send(typicalEmbed(GregErrDesc, "Setting up the Greg spam function", footer, colour));
+    }
   }
 
   if(msg.content.startsWith(prefix + "gregsetup")) {
