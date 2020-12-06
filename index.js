@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require('fs');
 const path = require('path');
+const keep_alive = require('./keep_alive.js')
 
 const colour = '#0099ff';
 const footer = "Auto Greg Bot | Prag's Pog Squad";
@@ -62,25 +63,28 @@ client.on('message', msg => {
       msg.channel.send(typicalEmbed(GregErrDesc, "Setting up the Greg spam function", footer, colour));
     }
   }
+  try {
+    if(msg.member.roles.cache.has('626845823690604571') == true) {
+      if(msg.content.startsWith(prefix + "gregsetup")) {
+        GregID = args[0];
+        GregChannel = args[1];
+        let TempDict = {
+          "Prefix": prefix,
+          "GregChannel": GregChannel,
+          "GregID": GregID
+        };
+        let jsonDATA = JSON.stringify(TempDict);
+        fs.writeFile("./JSONs/general.json", jsonDATA, function(err) { //function(err) is the callback function
+          if(err) {
+            msg.channel.send(err);
+          }
+        });
 
-  if(msg.member.roles.cache.has('626845823690604571') == true) {
-    if(msg.content.startsWith(prefix + "gregsetup")) {
-      GregID = args[0];
-      GregChannel = args[1];
-      let TempDict = {
-        "Prefix": prefix,
-        "GregChannel": GregChannel,
-        "GregID": GregID
-      };
-      let jsonDATA = JSON.stringify(TempDict);
-      fs.writeFile("./JSONs/general.json", jsonDATA, function(err) { //function(err) is the callback function
-        if(err) {
-          msg.channel.send(err);
-        }
-      });
-
-      msg.channel.send("All done! I'll now spam " + GregID + " in <#" + GregChannel + "> whenever someone sends a message!");
+        msg.channel.send("All done! I'll now spam " + GregID + " in <#" + GregChannel + "> whenever someone sends a message!");
+      }
     }
+  } catch(e) {
+    console.log("");
   }
   if(msg.content.startsWith(prefix + "hpybd")) {
     msg.channel.send("Happy birthday Rival!!");
