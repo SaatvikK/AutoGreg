@@ -12,9 +12,10 @@ client.on('ready', () => {
 
 const files = fs.readdirSync("./JSONs");
 const data = JSON.parse(fs.readFileSync("./JSONs/general.json", "utf8"));
-prefix = data["Prefix"];
+let prefix = data["Prefix"];
 
-
+let GregChannel = data["GregChannel"];
+let GregID = data["GregID"];
 client.on('message', msg => {
   //Creating command arguments -------------------------------------------------------------------------------------
   const args = msg.content.slice(prefix.length).split(' ');
@@ -26,7 +27,9 @@ client.on('message', msg => {
       prefix = args[0]
       msg.channel.send("Your prefix has been set to: " + args[0]);
       let TempDict = {
-        "Prefix": prefix
+        "Prefix": prefix,
+        "GregChannel": GregChannel,
+        "GregID": GregID
       };
       let jsonDATA = JSON.stringify(TempDict);
       fs.writeFile("./JSONs/general.json", jsonDATA, function(err) { //function(err) is the callback function
@@ -46,8 +49,36 @@ client.on('message', msg => {
       const GregEmbed = typicalEmbed(GregDesc, "G RE G", footer, colour);
     }
 
-    if(msg.author.id !== client.user.id) { client.channels.cache.get('784445287669825577').send("<:GREG:784815940889346078>"); }
-    //The above is obtained by typing (in discord) "\:emojiname:"
+
+
+    if(GregChannel != null && GregID != null) {
+      if(msg.author.id !== client.user.id) { 
+        client.channels.cache.get(GregChannel).send(GregID);
+        //The above is obtained by typing (in discord) "\:emojiname:"
+      }
+    } else {
+      const GregErrDesc = "1) type `<\:emojiname:` into discord.\n2) Copy the output you get (it should look something like: `<:GREG:784815940889346078>`).\n3) Type the following: `/gregsetup [<:emoji:emoji_id:>] [Channel ID you want to spam]`.\nAnd you're good to go!";
+      msg.channel.send(typicalEmbed(GregErrDesc, "Setting up the Greg spam function", footer, colour));
+    }
+
+    if(msg.content.startsWith(prefix + "gregsetup")) {
+      GregID = args[0];
+      GregChannel = args[1];
+      let TempDict = {
+        "Prefix": prefix,
+        "GregChannel": GregChannel,
+        "GregID": GregID
+      };
+      let jsonDATA = JSON.stringify(TempDict);
+      fs.writeFile("./JSONs/general.json", jsonDATA, function(err) { //function(err) is the callback function
+        if(err) {
+          msg.channel.send(err);
+        }
+      });
+
+      msg.channel.send("All done! I'll now spam " + GregID + " in <#" + GregChannel + "> whenever someone sends a message!");
+    }
+
   }
 });
 
@@ -60,5 +91,10 @@ function typicalEmbed(desc, title, footer, colour) {
   .setFooter(footer);
 
   return Embed;
+}
+
+
+function gregReactionSetup() {
+
 }
 client.login(token);
