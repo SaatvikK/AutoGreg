@@ -40,7 +40,7 @@ client.on('message', msg => {
     });
   }
   if(msg.content.startsWith(prefix + "help")) {
-    const HelpDesc = prefix + " - prefix\n";
+    const HelpDesc = prefix + " - prefix\n`/greg` - Tells you info about greg.\n`/gregsetup` - Only for admins, sets up the greg reaction function.\n`/hpybd` - Wishes <@234347441363746816> happy birthday.\n";
     const HelpEmbed = typicalEmbed(HelpDesc, "Help & Info", footer, colour);
     msg.channel.send(HelpEmbed)
   }
@@ -50,7 +50,14 @@ client.on('message', msg => {
     const GregEmbed = typicalEmbed(GregDesc, "G RE G", footer, colour);
   }
 
-
+  if(msg.content.startsWith(prefix + "issue")) {
+    let Issue = "";
+    for(let i = 0; i < args; i ++) {
+      Issue = Issue + " " + args[i];
+    }
+    client.channels.cache.get("785116447852068875").send(Issue);
+    msg.channel.send("Your issue has been sent to the developer(s)!");
+  }
 
   if(GregChannel != null && GregID != null) {
     if(msg.author.id !== client.user.id) { 
