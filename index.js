@@ -1,13 +1,14 @@
 const token = "your token here";
+const keep_alive = require('./keep_alive.js');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require('fs');
 const path = require('path');
-const keep_alive = require('./keep_alive.js')
 
+const version = "v1.2";
 const colour = '#0099ff';
-const footer = "Auto Greg Bot | Prag's Pog Squad";
-
+const footer = "Auto Greg Bot " + version + " | Prag's Pog Squad";
+const GitRepo = "Repo: https://github.com/SaatvikK/AutoGreg";
 client.on('ready', () => {
   console.log("I'm in");
   console.log(client.user.username);
@@ -43,7 +44,7 @@ client.on('message', msg => {
     });
   }
   if(msg.content.startsWith(prefix + "help")) {
-    const HelpDesc = prefix + " - prefix\n`/greg` - Tells you info about greg.\n`/gregsetup` - Only for admins, sets up the greg reaction function.\n`/hpybd` - Wishes <@234347441363746816> happy birthday.\n";
+    const HelpDesc = prefix + " - prefix\n`/greg` - Tells you info about greg.\n`/gregsetup` - Only for admins, sets up the greg reaction function.\n`/hpybd` - Wishes <@234347441363746816> happy birthday.\n`/updates` - Newest updates and the current stable version.\n `/verify` - Only for unverified people.\n- `/issue` - Report an issue with the bot to the dev(s).";
     const HelpEmbed = typicalEmbed(HelpDesc, "Help & Info", footer, colour);
     msg.channel.send(HelpEmbed)
   }
@@ -63,7 +64,7 @@ client.on('message', msg => {
   }
 
   if(GregChannel != null && GregID != null) {
-    if(msg.author.id !== client.user.id) { 
+    if(msg.author.id !== client.user.id && msg.channel.id == "729325685738438686") { 
       client.channels.cache.get(GregChannel).send(GregID);
       //The above is obtained by typing (in discord) "\:emojiname:"
     }
@@ -103,9 +104,14 @@ client.on('message', msg => {
   if(msg.content.startsWith("good morning") || msg.content.startsWith("gm")) {
     msg.channel.send("Goooood morning Vietnaaaaaam! Greg has blessed you with a good day, <@" + msg.author.id + ">!")
   }
+
+  if(msg.content.startsWith(prefix + "updates")) {
+    const UpdateDesc = "- `/help` command.\n- `/greg` command\n- `/issue` - Issue report command.\n- Webserver (bot on 24/7)\n- Bot now autoresponds to goodmorning messages.\n- `/updates` -  Update log command.\n- `/verify` - Verify.\n- The bot will now only spam in <#729325685738438686> when someone sends a message there, to prevent overspam.\n";
+    msg.channel.send(typicalEmbed(UpdateDesc, "Auto Greg: " + version + " Update Log", footer + " | " + GitRepo, colour));
+  }
 });
 
-function typicalEmbed(desc, title, footer, colour) {z
+function typicalEmbed(desc, title, footer, colour) {
   const Embed = new Discord.MessageEmbed()
   .setColor(colour)
   .setTitle(title)
