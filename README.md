@@ -9,3 +9,4 @@ Prag's Pog Squad Bot: AutoGreg
 - Autorespond to goodmorning messages. /
 - update log command.
 - Verify
+- The bot will now only spam in <#729325685738438686> when someone sends a message there, to prevent overspam.
