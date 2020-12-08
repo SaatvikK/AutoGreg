@@ -40,26 +40,49 @@ for (const file of commandFiles) {
 //On message sent event ------------------------------------------
 client.on('message', msg => {
   msg.content = msg.content.toLowerCase();
+  	if (!msg.content.startsWith(prefix) || msg.author.bot) return;
   //Creating command arguments
-  const args = msg.content.slice(prefix.length).split(' ');
-  const command = args.shift().toLowerCase();
+	const args = msg.content.slice(prefix.length).trim().split(/ +/);
+	const command = args.shift().toLowerCase();
 
 
 
-  if()
+  if(msg.content.startsWith(prefix + "bug")) {
+    client.commands.get('bug').execute(msg, args);
+  }
+  else if(command === "greg") {
+    client.commands.get('greg').execute(msg, args, typicalEmbed, colour, footer);
+  } 
+  else if(msg.content.startsWith(prefix + "gregsetup")) {
+    client.commands.get('gregsetup').execute(msg, args, typicalEmbed, colour, footer);
+  }
+  else if(msg.content.startsWith(prefix + "hpybd")) {
+    client.commands.get('hpybd').execute(msg, args);
+  }
+  else if(msg.content.startsWith(prefix + "setprefix")) {
+    client.commands.get('setprefix').execute(msg, args);
+  }
+  else if(msg.content.startsWith(prefix + "updates")) {
+    client.commands.get('updates').execute(msg, args, typicalEmbed, colour, footer, version);
+  }
+  else if(msg.content.startsWith(prefix + "verify")) {
+    client.commands.get('verify').execute(msg, args, typicalEmbed, colour, footer);
+  }
 
 
 
   //#greg spam auto function
-  if(GregChannel != null && GregID != null) {
-    if(msg.author.id !== client.user.id && msg.channel.id == "729325685738438686") { 
-      client.channels.cache.get(GregChannel).send(GregID);
-      //The above is obtained by typing (in discord) "\:emojiname:"
-    }
-  } else {
-    if(msg.author.id !== client.user.id) {
-      const GregErrDesc = "Get an admin to do the following:\n1) type `<\:emojiname:` into discord.\n2) Copy the output you get (it should look something like: `<:GREG:784815940889346078>`).\n3) Type the following: `/gregsetup [<:emoji:emoji_id:>] [Channel ID you want to spam]`.\nAnd you're good to go!";
-      msg.channel.send(typicalEmbed(GregErrDesc, "Setting up the Greg spam function", footer, colour));
+  if(msg.channel.id == "729325685738438686") {
+    if(GregChannel != null && GregID != null) {
+      if(msg.author.id !== client.user.id) { 
+        client.channels.cache.get(GregChannel).send(GregID);
+        //The above is obtained by typing (in discord) "\:emojiname:"
+      }
+    } else {
+      if(msg.author.id !== client.user.id) {
+        const GregErrDesc = "Get an admin to do the following:\n1) type `<\:emojiname:` into discord.\n2) Copy the output you get (it should look something like: `<:GREG:784815940889346078>`).\n3) Type the following: `/gregsetup [<:emoji:emoji_id:>] [Channel ID you want to spam]`.\nAnd you're good to go!";
+        msg.channel.send(typicalEmbed(GregErrDesc, "Setting up the Greg spam function", footer, colour));
+      }
     }
   }
 
@@ -70,9 +93,7 @@ client.on('message', msg => {
         
       }
     }
-  } catch(e) {
-    console.log("");
-  }
+  } catch(e) {}
 
   //Good morning auto responder
   if(msg.content.startsWith("good morning") || msg.content.startsWith("gm")) {
