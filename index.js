@@ -113,7 +113,7 @@ client.on('message', msg => {
       }
     }
   } catch(e) {
-    console.log("");
+    console.log();
   }
   //Happy birthday command
   if(msg.content.startsWith(prefix + "hpybd")) {
@@ -131,22 +131,36 @@ client.on('message', msg => {
     msg.channel.send(typicalEmbed(UpdateDesc, "Auto Greg: " + version + " Update Log", footer + " | " + GitRepo, colour));
   }
 
+
+
+
   //Verification
   if(msg.content.startsWith(prefix + "verify")) {
     if(msg.member.roles.cache.has('645403792866803722') == true) {
       msg.member.roles.add(['586878256901259276']); //Adds members role
       msg.member.roles.remove('645403792866803722'); //Removes unverified role
-      msg.author.send("You've been verified on Prag's Pog Squad! You should've been DMed by a bot called 'Carl-bot', please read that for info!"); //Dms user that verification is complete.
+      //msg.author.send("You've been verified on Prag's Pog Squad! You should've been DMed by a bot called 'Carl-bot', please read that for info!"); //Dms user that verification is complete.
       client.channels.cache.get('586874484263354377').send("Verified user: <@" + msg.author.id + ">"); //Sends message in staff channel.
     } else {
       msg.channel.send("Error: you can't do that, because you're already verified, YIPEE!");
     }
-  } else {
-    if(!msg.content && msg.author.id !== client.user.id) {
-      msg.channel.send("Dumbfuck, thats not a command. do `/help` for a list of commands. ");
-    }
   }
 });
+
+
+//Embed function for general use.
+function typicalEmbed(desc, title, footer, colour) {
+  const Embed = new Discord.MessageEmbed()
+  .setColor(colour)
+  .setTitle(title)
+  .setDescription(desc)
+  .setTimestamp()
+  .setFooter(footer);
+
+  return Embed;
+}
+
+client.login(token); //Bot logging into Discord.
 
 
 //Embed function for general use.
