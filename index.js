@@ -68,6 +68,9 @@ client.on('message', msg => {
   else if(command === "verify") {
     client.commands.get('verify').execute(msg, args, typicalEmbed, colour, footer);
   }
+  else if(command === "help") {
+    client.commands.get('help').execute(msg, args, prefix, typicalEmbed, colour, footer)
+  }
 
 
 
