@@ -1,11 +1,11 @@
 module.exports = {
 	name: 'setprefix',
 	description: 'Sets the prefix for the server. (Admins only!)',
-	execute(msg, args) {
+	execute(msg, args, GregChannel, GregID, fs) {
     //Saving prefix to JSON.
     msg.channel.send("Your prefix has been set to: " + args[0]);
     let TempDict = {
-      "Prefix": prefix,
+      "Prefix": args[0],
       "GregChannel": GregChannel,
       "GregID": GregID
     };
