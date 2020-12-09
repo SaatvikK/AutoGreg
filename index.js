@@ -8,7 +8,7 @@ const fs = require('fs');
 const path = require('path');
 
 //Constants------------------------------------------------------------
-const version = "v1.2";
+const version = "v1.3";
 const colour = '#0099ff';
 const footer = "Auto Greg Bot " + version + " | Prag's Pog Squad";
 
@@ -19,7 +19,6 @@ client.on('ready', () => {
 });
 
 //Reading general.json and reading prefix, GregChannel, and GregID:
-const files = fs.readdirSync("./JSONs");
 const data = JSON.parse(fs.readFileSync("./JSONs/general.json", "utf8"));
 let prefix = data["Prefix"];
 
@@ -48,7 +47,7 @@ client.on('message', msg => {
 
 
   if(msg.content.startsWith(prefix + "bug")) {
-    client.commands.get('bug').execute(msg, args);
+    client.commands.get('bug').execute(msg, args, client.channels.cache.get("785116447852068875"));
   }
   else if(command === "greg") {
     client.commands.get('greg').execute(msg, args, typicalEmbed, colour, footer);
@@ -60,12 +59,13 @@ client.on('message', msg => {
     client.commands.get('hpybd').execute(msg, args);
   }
   else if(msg.content.startsWith(prefix + "setprefix")) {
-    client.commands.get('setprefix').execute(msg, args);
+    client.commands.get('setprefix').execute(msg, args, GregChannel, GregID, fs);
+    prefix = args[0];
   }
-  else if(msg.content.startsWith(prefix + "updates")) {
+  else if(command === "updates") {
     client.commands.get('updates').execute(msg, args, typicalEmbed, colour, footer, version);
   }
-  else if(msg.content.startsWith(prefix + "verify")) {
+  else if(command === "verify") {
     client.commands.get('verify').execute(msg, args, typicalEmbed, colour, footer);
   }
 
