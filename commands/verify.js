@@ -1,5 +1,5 @@
 module.exports = {
-	name: 'greg',
+	name: 'verify',
 	description: 'Gives you information about Greg.',
 	execute(msg, args, typicalEmbed, colour, footer) {
     if(msg.member.roles.cache.has('645403792866803722') == true) {
