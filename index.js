@@ -1,5 +1,5 @@
 const token = "your token here";
-const keep_alive = require('./keep_alive.js');
+//const keep_alive = require('./keep_alive.js');
 
 //Installing dependencies--------------------------------------
 const Discord = require('discord.js');
@@ -8,7 +8,7 @@ const fs = require('fs');
 const path = require('path');
 
 //Constants------------------------------------------------------------
-const version = "v1.3";
+const version = "v1.4";
 const colour = '#0099ff';
 const footer = "Auto Greg Bot " + version + " | Prag's Pog Squad";
 
@@ -53,7 +53,7 @@ client.on('message', msg => {
     client.commands.get('greg').execute(msg, args, typicalEmbed, colour, footer);
   } 
   else if(msg.content.startsWith(prefix + "gregsetup")) {
-    client.commands.get('gregsetup').execute(msg, args, typicalEmbed, colour, footer);
+    client.commands.get('gregsetup').execute(msg, args, typicalEmbed, colour, footer, prefix, fs);
   }
   else if(msg.content.startsWith(prefix + "hpybd")) {
     client.commands.get('hpybd').execute(msg, args);
@@ -66,7 +66,19 @@ client.on('message', msg => {
     client.commands.get('updates').execute(msg, args, typicalEmbed, colour, footer, version);
   }
   else if(command === "help") {
-    client.commands.get('help').execute(msg, args, prefix, typicalEmbed, colour, footer)
+    client.commands.get('help').execute(msg, args, prefix, typicalEmbed, colour, footer);
+  }
+  else if(command === "setup") {
+    client.commands.get('setup').execute(msg, args, typicalEmbed, colour, footer);
+  }
+  else if(command === "say") {
+    try {
+      const SendChnl = client.channels.cache.get(msg.mentions.channels.first().id);
+      client.commands.get('say').execute(msg, args, SendChnl);
+    } catch(e) {
+      console.log("Had trouble getting channel to send msg to. Probably because /say help was triggered. Error:\n" + e);
+      client.commands.get('say').execute(msg, args);
+    }
   }
 
 
@@ -80,7 +92,7 @@ client.on('message', msg => {
       }
     } else {
       if(msg.author.id !== client.user.id) {
-        const GregErrDesc = "Get an admin to do the following:\n1) type `<\:emojiname:` into discord.\n2) Copy the output you get (it should look something like: `<:GREG:784815940889346078>`).\n3) Type the following: `/gregsetup [<:emoji:emoji_id:>] [Channel ID you want to spam]`.\nAnd you're good to go!";
+        const GregErrDesc = "Get an admin to do the following:\n1) type `[backslash here]:emojiname:` into discord.\n2) Copy the output you get (it should look something like: `<:GREG:784815940889346078>`).\n3) Type the following: `/gregsetup [<:emoji:emoji_id:>] [Channel ID you want to spam]`.\nAnd you're good to go!";
         msg.channel.send(typicalEmbed(GregErrDesc, "Setting up the Greg spam function", footer, colour));
       }
     }
