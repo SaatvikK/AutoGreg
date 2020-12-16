@@ -71,6 +71,15 @@ client.on('message', msg => {
   else if(command === "help") {
     client.commands.get('help').execute(msg, args, prefix, typicalEmbed, colour, footer)
   }
+  else if(command === "say") {
+    try {
+      const SendChnl = client.channels.cache.get(msg.mentions.channels.first().id);
+      client.commands.get('say').execute(msg, args, SendChnl);
+    } catch(e) {
+      console.log("Had trouble getting channel to send msg to. Probably because /say help was triggered. Error:\n" + e);
+      client.commands.get('say').execute(msg, args);
+    }
+  }
 
 
 
