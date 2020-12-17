@@ -7,7 +7,12 @@ module.exports = {
       Bug = Bug + " " + args[i];
     }
     //Sending issue string 
-    chnl.send("<@397773303965548544>, new issue:\nFrom: <@" + msg.author.id + ">\nBug: " + Bug);
-    msg.channel.send("Your issue has been sent to the developer(s)!");
+    try {
+      chnl.send("<@397773303965548544>, new issue:\nFrom: <@" + msg.author.id + ">\nBug: " + Bug);
+      msg.channel.send("Your issue has been sent to the developer(s)!");
+    } catch(e) {
+      msg.channel.send("Unable to send trivia question due to an internal error (or Discord fucked up). - Check console for error.");
+      console.log("Command: trivia\nError: " + e);
+    }
   },
 };
