@@ -5,3 +5,4 @@ Prag's Pog Squad Bot: AutoGreg
 - /L command. Displays "L, Prageegee."
 - Added error handling.
 - Remove some, if not all, temporary code.
+- Prageegee Trivia. "/trivia"
