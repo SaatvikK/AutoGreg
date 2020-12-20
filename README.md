@@ -4,9 +4,5 @@ Prag's Pog Squad Bot: AutoGreg
 # AutoGreg
 Prag's Pog Squad Bot: AutoGreg
 
-**v1.4**
-- /L command. Displays "L, Prageegee."
-- Added error handling.
-- Remove some, if not all, temporary code.
-- Prageegee Trivia. "/trivia"
-- Removed good morning autoresponse (temporary).
+**v2.0**
+- Pinsock reaction whenever prageege pings @ everyone in #announcements, #videos, or #streams.
