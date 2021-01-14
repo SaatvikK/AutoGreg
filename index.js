@@ -1,6 +1,8 @@
 const token = "your token here";
 //const keep_alive = require('./keep_alive.js');
 
+//const keep_alive = require('./keep_alive.js');
+
 //Installing dependencies--------------------------------------
 let Discord = null;
 let fs = null;
@@ -14,7 +16,7 @@ try {
 }
 //Constants------------------------------------------------------------
 const client = new Discord.Client();
-const version = "v1.4";
+const version = "v2.0";
 const colour = '#0099ff';
 const footer = "Auto Greg Bot " + version + " | Prag's Pog Squad";
 
@@ -45,7 +47,6 @@ for (const file of commandFiles) {
 //On message sent event ------------------------------------------
 client.on('message', msg => {
   msg.content = msg.content.toLowerCase();
-  	if (!msg.content.startsWith(prefix) || msg.author.bot) return;
   //Creating command arguments
 	const args = msg.content.slice(prefix.length).trim().split(/ +/);
 	const command = args.shift().toLowerCase();
@@ -91,7 +92,9 @@ client.on('message', msg => {
     }
     else if(command === "trivia") {
       client.commands.get('trivia').execute(msg, args, typicalEmbed, colour, footer);
-
+    }
+    else if(command === "r" || command === "rule") {
+      client.commands.get("rules").execute(msg, args, typicalEmbed, colour, footer, prefix, fs);
     } else {
       //#greg spam auto function
       if(msg.channel.id == "729325685738438686") {
@@ -125,6 +128,14 @@ client.on('message', msg => {
   } catch(e) {
     msg.channel.send("Had trouble processing your request. Please try again. If the issue persists send a bug report with `/bug [bug]` or contact a staff member.");
   }
+
+  const PingChannels = ["651551662892122112", "651551636719665171", "694981465972277369"] //0: announcements, 1: vids, 2: streams <-- for ACTUAL bot
+  try {
+    //const PingChannels = ["784139162081165352"]; // For unstable version.
+    if(PingChannels.includes(msg.channel.id) && msg.mentions) { //<:pingsock:781164489600532522>
+      msg.react("<:Pingsock:706831123568656416>");
+    }
+  } catch(e) {}
 });
 
 
@@ -139,5 +150,6 @@ function typicalEmbed(desc, title, footer, colour) {
 
   return Embed;
 }
+
 
 client.login(token); //Bot logging into Discord.
