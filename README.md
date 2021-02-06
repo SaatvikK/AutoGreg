@@ -5,5 +5,6 @@ Prag's Pog Squad Bot: AutoGreg
 Prag's Pog Squad Bot: AutoGreg
 
 **v2.1**
-- Fixed bug where `/r [no.]` was triggered when "r" was second char in string.
+- Fixed bug where some commands could be triggered with any prefix (was annoying when talking in chat).
+
 
