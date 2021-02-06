@@ -13,7 +13,7 @@ try {
 }
 //Constants------------------------------------------------------------
 const client = new Discord.Client();
-const version = "v2.0";
+const version = "v2.1";
 const colour = '#0099ff';
 const footer = "Auto Greg Bot " + version + " | Prag's Pog Squad";
 
@@ -46,9 +46,9 @@ client.on('message', msg => {
   msg.content = msg.content.toLowerCase();
   //Creating command arguments
 	const args = msg.content.slice(prefix.length).trim().split(/ +/);
-	const command = args.shift().toLowerCase();
+  const command = args.shift().toLowerCase();
 
-
+  if (!msg.content.startsWith(prefix) || msg.author.bot) return;
   try {
     if(msg.content.startsWith(prefix + "bug")) {
       client.commands.get('bug').execute(msg, args, client.channels.cache.get("785116447852068875"));
@@ -76,19 +76,14 @@ client.on('message', msg => {
       client.commands.get('setup').execute(msg, args, typicalEmbed, colour, footer);
     }
     else if(command === "say") {
-      try {
-        const SendChnl = client.channels.cache.get(msg.mentions.channels.first().id);
-        client.commands.get('say').execute(msg, args, SendChnl);
-      } catch(e) {
-        console.log("Had trouble getting channel to send msg to. Probably because /say help was triggered. Error:\n" + e);
-        client.commands.get('say').execute(msg, args);
-      }
+      client.commands.get('say').execute(msg, args, client);
     }
     else if(command === "l") {
       client.commands.get('l').execute(msg, args);
     }
     else if(command === "trivia") {
       client.commands.get('trivia').execute(msg, args, typicalEmbed, colour, footer);
+
     }
     else if(command === "r" || command === "rule") {
       client.commands.get("rules").execute(msg, args, typicalEmbed, colour, footer, prefix, fs);
@@ -126,14 +121,19 @@ client.on('message', msg => {
     msg.channel.send("Had trouble processing your request. Please try again. If the issue persists send a bug report with `/bug [bug]` or contact a staff member.");
   }
 
-  const PingChannels = ["651551662892122112", "651551636719665171", "694981465972277369"] //0: announcements, 1: vids, 2: streams <-- for ACTUAL bot
+  //const PingChannels = ["651551662892122112", "651551636719665171", "694981465972277369"] //0: announcements, 1: vids, 2: streams <-- for ACTUAL bot
   try {
-    //const PingChannels = ["784139162081165352"]; // For unstable version.
-    if(PingChannels.includes(msg.channel.id) && msg.mentions) { //<:pingsock:781164489600532522>
-      msg.react("<:Pingsock:706831123568656416>");
+    const PingChannels = ["784139162081165352"]; // For unstable version.
+    const Pings = ["771881906593595452"] //for unstable
+    if(PingChannels.includes(msg.channel.id)) { 
+      msg.react("<:Pingsock:706831123568656416>"); //For Pog Squad
+      //msg.react("<:Pingsock2:799295661996507147>"); //For unstable version.
     }
   } catch(e) {}
 });
+
+
+
 
 
 //Embed function for general use.
