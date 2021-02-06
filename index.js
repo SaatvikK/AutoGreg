@@ -46,7 +46,7 @@ client.on('message', msg => {
   msg.content = msg.content.toLowerCase();
   //Creating command arguments
 	const args = msg.content.slice(prefix.length).trim().split(/ +/);
-	const command = args.shift().toLowerCase();
+  const command = args.shift().toLowerCase();
 
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
   try {
@@ -76,19 +76,14 @@ client.on('message', msg => {
       client.commands.get('setup').execute(msg, args, typicalEmbed, colour, footer);
     }
     else if(command === "say") {
-      try {
-        const SendChnl = client.channels.cache.get(msg.mentions.channels.first().id);
-        client.commands.get('say').execute(msg, args, SendChnl);
-      } catch(e) {
-        console.log("Had trouble getting channel to send msg to. Probably because /say help was triggered. Error:\n" + e);
-        client.commands.get('say').execute(msg, args);
-      }
+      client.commands.get('say').execute(msg, args, client);
     }
     else if(command === "l") {
       client.commands.get('l').execute(msg, args);
     }
     else if(command === "trivia") {
       client.commands.get('trivia').execute(msg, args, typicalEmbed, colour, footer);
+
     }
     else if(command === "r" || command === "rule") {
       client.commands.get("rules").execute(msg, args, typicalEmbed, colour, footer, prefix, fs);
@@ -136,6 +131,9 @@ client.on('message', msg => {
     }
   } catch(e) {}
 });
+
+
+
 
 
 //Embed function for general use.
