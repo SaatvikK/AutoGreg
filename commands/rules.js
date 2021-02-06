@@ -18,7 +18,12 @@ module.exports = {
     try {
       const index = parseInt(args[0]) - 1;
       const desc = rules[index];
-      msg.channel.send(typicalEmbed(desc, "Rule " + args[0], footer, colour));
+      if(desc == undefined) {
+        msg.channel.send("Rule " + args[0] + " doesn't exist lol.");
+        
+      } else {
+        msg.channel.send(typicalEmbed(desc, "Rule " + args[0], footer, colour));
+      }
     } catch(e) {
       msg.channel.send("Either that isn't a rule, or I just errored.");
     }
