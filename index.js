@@ -1,5 +1,6 @@
 const token = "your token here";
 //const keep_alive = require('./keep_alive.js');
+
 //Installing dependencies--------------------------------------
 let Discord = null;
 let fs = null;
@@ -47,13 +48,11 @@ client.on('message', msg => {
   //Creating command arguments
 	const args = msg.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
-
-  if (!msg.content.startsWith(prefix) || msg.author.bot) return;
   try {
     if(msg.content.startsWith(prefix + "bug")) {
       client.commands.get('bug').execute(msg, args, client.channels.cache.get("785116447852068875"));
     }
-    else if(command === "greg") {
+    else if(msg.content.startsWith(prefix + "greg")) {
       client.commands.get('greg').execute(msg, args, typicalEmbed, colour, footer);
     } 
     else if(msg.content.startsWith(prefix + "gregsetup")) {
@@ -66,22 +65,22 @@ client.on('message', msg => {
       client.commands.get('setprefix').execute(msg, args, GregChannel, GregID, fs);
       prefix = args[0];
     }
-    else if(command === "updates") {
+    else if(msg.content.startsWith(prefix + "updates")) {
       client.commands.get('updates').execute(msg, args, typicalEmbed, colour, footer, version);
     }
-    else if(command === "help") {
+    else if(msg.content.startsWith(prefix + "help")) {
       client.commands.get('help').execute(msg, args, prefix, typicalEmbed, colour, footer);
     }
-    else if(command === "setup") {
+    else if(msg.content.startsWith(prefix + "setup")) {
       client.commands.get('setup').execute(msg, args, typicalEmbed, colour, footer);
     }
-    else if(command === "say") {
+    else if(msg.content.startsWith(prefix + "say")) {
       client.commands.get('say').execute(msg, args, client);
     }
-    else if(command === "l") {
+    else if(msg.content.startsWith(prefix + "l")) {
       client.commands.get('l').execute(msg, args);
     }
-    else if(command === "trivia") {
+    else if(msg.content.startsWith(prefix + "trivia")) {
       client.commands.get('trivia').execute(msg, args, typicalEmbed, colour, footer);
 
     }
