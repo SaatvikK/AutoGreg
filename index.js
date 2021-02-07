@@ -84,7 +84,7 @@ client.on('message', msg => {
       client.commands.get('trivia').execute(msg, args, typicalEmbed, colour, footer);
 
     }
-    else if(command === "r" || command === "rule") {
+    else if(msg.content.startsWith(prefix + "r") || msg.content.startsWith(prefix + "rule")) {
       client.commands.get("rules").execute(msg, args, typicalEmbed, colour, footer, prefix, fs);
     } else {
       //#greg spam auto function
