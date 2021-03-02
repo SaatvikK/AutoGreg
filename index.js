@@ -1,5 +1,5 @@
 const token = "your token here";
-//const keep_alive = require('./keep_alive.js');
+//const keep_alive = require('./keep_alive.js'); //This is the webserver to keep bot alive.
 
 //Installing dependencies--------------------------------------
 let Discord = null;
@@ -17,12 +17,12 @@ const client = new Discord.Client();
 const version = "v2.1";
 const colour = '#0099ff';
 const footer = "Auto Greg Bot " + version + " | Prag's Pog Squad";
-
+//colour, footer, version no. are for the embeds.
 //On start up -------------------------------------
-client.on('ready', () => {
+client.on('ready', () => { //Executes when bot is initially started.
   console.log("I'm in");
   console.log(client.user.username);
-});
+}); 
 
 //Reading general.json and reading prefix, GregChannel, and GregID:
 const data = JSON.parse(fs.readFileSync("./JSONs/general.json", "utf8"));
