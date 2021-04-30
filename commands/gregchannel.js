@@ -37,7 +37,7 @@ module.exports = {
           const MyQuery = {"Identifier": 1};
           const NewQuery = { $set: {"Identifier": 1, "GregChannelID": channel}};
           const res = await TriviaCollection.updateOne(MyQuery, NewQuery);
-          msg.channel.send("Added points.")
+          msg.channel.send("Changed GREG channel to <#" + channel + ">.");
           return;            
         } else {
           const doc = {"Identifier": 1, "GregChannelID": channel};
@@ -46,7 +46,7 @@ module.exports = {
           return;    
         }    
       } catch(e) {
-        msg.channel.send("Error while adding point. Full error in console.");
+        msg.channel.send("Error while changing greg channel. Full error in console.");
         console.log("Error while adding trivia points via addtrivia:");
         console.log(e);
       } finally { database.close(); } 
