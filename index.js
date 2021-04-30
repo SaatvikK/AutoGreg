@@ -64,15 +64,16 @@ client.on('message', msg => {
       break;
       
       case "gregchannel":
-        if(msg.member.roles.cache.has('785441338065551371') == true) {
+        if(msg.member.roles.cache.has('626845823690604571') == true) {
           client.commands.get('gregchannel').execute(msg, args, colour, footer, uri);
         }
       break;
 
       case "gregemoji":
-        if(msg.member.roles.cache.has("785441338065551371") == true) {
+        if(msg.member.roles.cache.has("626845823690604571") == true) {
           client.commands.get("gregemoji").execute(msg, args, colour, footer, uri);
         }
+      break;
       case "hpybd":
         client.commands.get('hpybd').execute(msg, args);
       break;
