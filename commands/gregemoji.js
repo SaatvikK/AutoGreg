@@ -45,7 +45,7 @@ module.exports = {
           return;    
         }    
       } catch(e) {
-        msg.channel.send("Error while adding point. Full error in console.");
+        msg.channel.send("Error while changing greg emoji. Full error in console.");
         console.log("Error while adding trivia points via addtrivia:");
         console.log(e);
       } finally { database.close(); } 
