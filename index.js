@@ -52,7 +52,7 @@ client.on('message', msg => {
   //Creating command arguments
 	const args = msg.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
-  if(msg.author.id == client.user.id) return;
+  if(msg.author.bot) return;
   try {
     switch(command) {
       case "bug":
@@ -112,6 +112,7 @@ client.on('message', msg => {
         client.commands.get("rules").execute(msg, args, typicalEmbed, colour, footer, prefix, fs);
       break;
       default:
+
         //#greg spam auto function
         async function dbStuff(msg, args, uri) {
           console.log("async fcuntion")
@@ -129,7 +130,7 @@ client.on('message', msg => {
             const emoji = await TriviaCollection.findOne({"Identifier":2});
             console.log(channel);
             console.log(emoji)
-            if(msg.author.id != client.user.id) {
+            if(!msg.author.bot) {
               if(msg.channel.id == channel["GregChannelID"]) {
                 if(channel["GregChannelID"] != null && emoji["GregID"] != null) {
                   return client.channels.cache.get(channel["GregChannelID"]).send(emoji["GregID"]);
@@ -138,7 +139,7 @@ client.on('message', msg => {
                   return msg.channel.send(typicalEmbed("Get an admin to do the following:\n1) type `[backslash here]:emojiname:` into discord.\n2) Copy the output you get (it should look something like: `<:GREG:784815940889346078>`).\n3) Type the following: `/gregsetup [<:emoji:emoji_id:>] [Channel ID you want to spam]`.\nAnd you're good to go!", "Setting up the Greg spam function", footer, colour));  
                 }    
               }
-            }
+            } else { return; }
           } catch(e) {
             msg.channel.send("Error while querying database for the GREG shit.");
             console.log("Error while adding trivia points via addtrivia:");
