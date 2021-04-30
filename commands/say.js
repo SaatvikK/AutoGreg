@@ -2,8 +2,8 @@ module.exports = {
 	name: 'say',
 	description: 'Only for staff, allows staff to say shit using bot.',
 	execute(msg, args, client) {
-    if(msg.member.roles.cache.has('727485641541287946') == true || msg.member.roles.cache.has('785441338065551371') == true) {
-      try { 
+    if(msg.member.roles.cache.has('626845823690604571') == true || msg.member.roles.cache.has('785441338065551371') == true) {
+      try {
         if(args[0] == "help") {
           msg.channel.send("Correct usage: `/say [tag channel] [message]`");
         } else {
